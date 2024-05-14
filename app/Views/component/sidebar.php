@@ -26,36 +26,38 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('produk') ?>" class="nav-link <?= $pages === 'Produk' ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-box"></i>
-                        <p>Produk</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('mitra') ?>" class="nav-link <?= $pages === 'Mitra' ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-people-carry"></i>
-                        <p>Mitra</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('bahan') ?>" class="nav-link <?= $pages === 'Bahan' ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-boxes"></i>
-                        <p>Bahan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('penjahit') ?>" class="nav-link <?= $pages === 'Penjahit' ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-id-badge"></i>
-                        <p>Penjahit</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('chat') ?>" class="nav-link">
-                        <i class="nav-icon fas fa-comments"></i>
-                        <p>Chat</p>
-                    </a>
-                </li>
+                <?php if (session()->get('jabatan') === 'bos') : ?>
+                    <li class="nav-item">
+                        <a href="<?= base_url('produk') ?>" class="nav-link <?= $pages === 'Produk' ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-box"></i>
+                            <p>Produk</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('mitra') ?>" class="nav-link <?= $pages === 'Mitra' ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-people-carry"></i>
+                            <p>Mitra</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('bahan') ?>" class="nav-link <?= $pages === 'Bahan' ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>Bahan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('penjahit') ?>" class="nav-link <?= $pages === 'Penjahit' ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-id-badge"></i>
+                            <p>Penjahit</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('chat') ?>" class="nav-link <?= $pages === 'Chat' ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-comments"></i>
+                            <p>Chat</p>
+                        </a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a href="<?= base_url('home/logout') ?>" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
