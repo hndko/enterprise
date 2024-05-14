@@ -9,8 +9,9 @@ class Finance extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'pages' => 'Dashboard'
         ];
-        return view('finance/index', $data);
+        return view('dashboard/finance/index', $data);
     }
 }

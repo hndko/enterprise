@@ -2,13 +2,16 @@
 
 namespace Config;
 
-use App\Controllers\ChatController;
-use App\Controllers\BahanController;
+use App\Controllers\Absen;
 use App\Controllers\Dashboard;
+use App\Controllers\Penjualan;
+use App\Controllers\Penggajian;
+use App\Controllers\ChatController;
+use App\Controllers\UserController;
+use App\Controllers\BahanController;
 use App\Controllers\MitraController;
 use App\Controllers\ProdukController;
 use App\Controllers\PenjahitController;
-use App\Controllers\Penjualan;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
@@ -78,12 +81,25 @@ $routes->post('penjahit/store', [PenjahitController::class, 'store']);
 $routes->get('penjahit/edit/(:num)', [PenjahitController::class, 'edit/$1']);
 $routes->post('penjahit/update', [PenjahitController::class, 'update']);
 
+/** Route User */
+$routes->get('user', [UserController::class, 'index']);
+$routes->get('user/create', [UserController::class, 'create']);
+$routes->post('user/store', [UserController::class, 'store']);
+$routes->get('user/edit/(:num)', [UserController::class, 'edit/$1']);
+$routes->post('user/update', [UserController::class, 'update']);
+
 /** Route Chatting */
 $routes->get('chat', [ChatController::class, 'index']);
 $routes->get('chatAll', [ChatController::class, 'indexAll']);
 $routes->post('chat/sendMessage', [ChatController::class, 'sendMessage']);
 $routes->post('chatAll/sendMessage', [ChatController::class, 'sendAllMessage']);
 $routes->post('chatAll/markAsRead', [ChatController::class, 'markAsRead']);
+
+/** Route Penggajian */
+$routes->get('penggajian', [Penggajian::class, 'index']);
+
+/** Route Absen */
+$routes->get('absen', [Absen::class, 'index']);
 
 // penjualan
 $routes->get('penjualan/view', [Penjualan::class, 'view']);
@@ -95,7 +111,7 @@ $routes->get('penjualan/detail/(:num)', [Penjualan::class, 'detail/$1']);
 $routes->get('/produksi/detailpenjahitan/(:num)', 'Produksi::detailPenjahitan/$1');
 $routes->get('/produksi/tambahproduksi', 'Produksi::tambahProduksi');
 $routes->post('/produksi/storeproduksi', 'Produksi::storeProduksi');
-// $routes->get('/tampol', 'Sales::penjualan');
+
 
 
 

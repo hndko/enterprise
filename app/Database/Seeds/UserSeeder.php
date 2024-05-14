@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'anonim',
-                'password' => password_hash('riqqi', PASSWORD_DEFAULT),
+                'password' => password_hash('anonim', PASSWORD_DEFAULT),
                 'jabatan'   => 'finance',
                 'gaji'   => '4000000'
             ],

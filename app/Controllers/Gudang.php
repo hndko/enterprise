@@ -31,34 +31,38 @@ class Gudang extends BaseController
     public function index()
     {
         $model = new Bahan();
-        
+
         $data = [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'pages' => 'Dashboard'
         ];
         $grafik = $model->getTotalPembelian();
         $data['grafik'] = $grafik;
-        return view('gudang/index', $data);
+
+        return view('dashboard/gudang/index', $data);
     }
 
     public function tampil()
     {
         $data = [
-            'title' => 'PEMBELIAN',
+            'title' => 'Pembelian',
+            'pages' => 'Gudang',
             // Menampilkan daftar user
             'users' => $this->pembelianModel->findAll()
         ];
-        return view('gudang/tampil', $data);
+        return view('dashboard/gudang/tampil', $data);
         // return view('penjualan/tampol', $data);
     }
 
-    public function tambahPembelian()
+    public function create()
     {
         $data = [
             'title' => 'Input Pembelian',
+            'pages' => 'Gudang',
             'mitra' => $this->mitraModel->getMitraAktif(),
             'bahan' => $this->bahanModel->getBahanAktif()
         ];
-        return view('gudang/tambahpembelian', $data);
+        return view('dashboard/gudang/create', $data);
     }
 
     public function storePembelian()
@@ -108,7 +112,7 @@ class Gudang extends BaseController
         // dd($data2);
         // $this->pembelianModel->updatePenjualan( $data2 ,$idPenjualan);
 
-        return redirect()->to('/gudang/tampil');
+        return redirect()->to('gudang/tampil');
     }
 
     public function DetailPembelian($id)
@@ -120,12 +124,16 @@ class Gudang extends BaseController
         $data['mitra'] = $mitraModel->findAll();
         $data['details'] = $detailPembelianModel->where('no_pembelian', $id)->findAll();
 
-        $data['title'] = 'Detail Pembelian';
+        $data = [
+            'title' => 'Detail Pembelian',
+            'pages' => 'Gudang',
+            'details' => $pembelianModel->getPembelian($id)->getResultArray()
+        ];
 
-        return view('gudang/detail_pembelian', $data);
+        return view('dashboard/gudang/detail', $data);
     }
 
-    
+
     public function get_harga_bahan()
     {
         $id_bahan = $this->request->getPost('id_bahan');
@@ -143,9 +151,10 @@ class Gudang extends BaseController
     // mellihat daftar bahan
     public function bahan()
     {
-     
+
         $data = [
             'title' => 'Daftar Bahan',
+            'pages' => 'Gudang',
             'bahan' => $this->bahanModel->getBahan(),
         ];
         return view('gudang/bahan', $data);
@@ -173,7 +182,7 @@ class Gudang extends BaseController
         $model = new Bahan();
         $ubah = $model->updateBahan($data, $id);
         if ($ubah) {
-            session()->setFlashdata('info','Berhasil Mengedit Bahan');
+            session()->setFlashdata('info', 'Berhasil Mengedit Bahan');
             return redirect()->to(base_url('gudang/bahan'));
         }
     }
@@ -208,7 +217,7 @@ class Gudang extends BaseController
         $data['produk'] = $model->getProduk($id)->getRowArray();
         echo view('gudang/editproduk', $data);
     }
-// controller untuk menampilkan view edit produk
+    // controller untuk menampilkan view edit produk
     public function updateProduk()
     {
         $id = $this->request->getPost('id_produk');
@@ -241,7 +250,7 @@ class Gudang extends BaseController
     // mellihat daftar mitra
     public function mitra()
     {
-     
+
         $data = [
             'title' => 'Daftar Status Mitra',
             'mitra' => $this->mitraModel->getMitraAktif(),
@@ -336,5 +345,4 @@ class Gudang extends BaseController
         $data['grafik'] = $model->getTotalPembelianTahunan($id)->getRowArray();
         echo view('gudang/grafik', $data);
     }
-
 }

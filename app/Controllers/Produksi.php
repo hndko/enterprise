@@ -27,28 +27,34 @@ class Produksi extends BaseController
         $this->jahit = new Penjahitan();
         $this->detailjahit = new DetailPenjahitan();
     }
+
     public function index()
     {
         $model = new Penjahitan();
 
         $data = [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'pages' => 'Dashboard',
         ];
         $grafik = $model->getTotalProduksiBatik();
         $data['grafik'] = $grafik;
-        return view('produksi/index', $data);
+
+        return view('dashboard/produksi/index', $data);
     }
-    public function penjahitan()
+
+    public function tampil()
     {
         $data = [
-            'title' => 'penjahitan',
+            'title' => 'Penjahitan',
+            'pages' => 'Produksi',
             // Menampilkan daftar user
             'users' => $this->jahit->findAll(),
             'Bulan' => $this->jahit->getBulanProduksiBatik(),
             'Tahun' => $this->jahit->getTahunProduksiBatik()
         ];
-        return view('produksi/penjahitan', $data);
+        return view('dashboard/produksi/tampil', $data);
     }
+
     public function detailPenjahitan($id)
     {
         // $penjualanModel = new Penjualan_();
@@ -67,11 +73,12 @@ class Produksi extends BaseController
     {
         $data = [
             'title' => 'Input Produksi',
+            'pages' => 'Produksi',
             'produk' => $this->produkModel->getProdukAktif(),
             'bahan' => $this->bahanModel->getBahanAktif(),
             'penjahit' => $this->penjahitModel->getPenjahitAktif(),
         ];
-        return view('produksi/tambahproduksi', $data);
+        return view('dashboard/produksi/create', $data);
     }
 
     public function storeProduksi()
@@ -91,7 +98,7 @@ class Produksi extends BaseController
         if ($simpan) {
             $this->storeDetailProduksi();
             session()->setFlashdata('success', 'Berhasil Menambah Produksi');
-            return redirect()->to(base_url('produksi/penjahitan'));
+            return redirect()->to(base_url('produksi/tampil'));
         }
     }
 

@@ -17,7 +17,6 @@ class Absen extends BaseController
 
     public function index()
     {
-
         if (session()->get('jabatan') == 'bos') return redirect()->to('/dashboard');
 
         $absen = $this->presensiModel->where('id_pegawai', session()->get('id'))->findAll();
@@ -44,13 +43,14 @@ class Absen extends BaseController
                 $info = 'sakit';
             }
         }
-        
+
         $data = [
             'title' => 'Absensi',
+            'pages' => 'Absensi',
             'info'  => $info,
             'absen' => $absen
         ];
-        return view('absen', $data);
+        return view('dashboard/absen/index', $data);
     }
 
     public function presensi()

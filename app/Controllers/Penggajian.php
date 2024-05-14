@@ -86,13 +86,14 @@ class Penggajian extends BaseController
             // $dataPegawai=nama,gaji,totaljam kerja, gaji sekarang
             $data = [
                 'title' => 'Penggajian',
+                'pages' => 'Penggajian',
                 'kerja' => $this->jamKerja(),
                 'penggajian'    => $penggajian,
                 'approve' => $approve,
             ];
-            return view('penggajian/index', $data);
+            return view('dashboard/penggajian/index', $data);
         } else {
-            return redirect()->to('/dashboard');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -160,7 +161,7 @@ class Penggajian extends BaseController
             ];
             return $this->response->setJSON($response);
         } else {
-            return redirect()->to('/dashboard');
+            return redirect()->route('dashboard');
         }
     }
     public function approveBos($bulan) //berikan message ke karyawan
@@ -170,7 +171,7 @@ class Penggajian extends BaseController
             $penggajian = $this->userModel->join('penggajian', 'penggajian.id_user=user.id_user')->where('month(tgl)', Time::parse('01-' . $bulan . '-2023', 'Asia/Jakarta', 'id_id')->getMonth())->findAll();
             // cek apakah penggajian kosong
             if (empty($penggajian)) {
-                return redirect()->to('/dashboard');
+                return redirect()->route('dashboard');
             }
             $approve = '';
             ($penggajian[0]['status'] == 0) ? $approve = '' : $approve = 'hidden';
@@ -185,7 +186,7 @@ class Penggajian extends BaseController
             // dd($data);
             return view('penggajian/approveBos', $data);
         } else {
-            return redirect()->to('/dashboard');
+            return redirect()->route('dashboard');
         }
     }
 
@@ -229,6 +230,6 @@ class Penggajian extends BaseController
             ];
             return view('penggajian/slipGaji', $data);
         }
-        return redirect()->to('/dashboard');
+        return redirect()->route('dashboard');
     }
 }
