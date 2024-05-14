@@ -39,7 +39,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('bahan') ?>" class="nav-link">
+                    <a href="<?= base_url('bahan') ?>" class="nav-link <?= $pages === 'Bahan' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-boxes"></i>
                         <p>Bahan</p>
                     </a>

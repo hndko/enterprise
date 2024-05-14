@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Controllers\BahanController;
 use App\Controllers\MitraController;
 use App\Controllers\ProdukController;
 
@@ -52,19 +53,22 @@ $routes->get('produk/detail/(:num)', [ProdukController::class, 'show/$1']);
 $routes->get('produk/edit/(:num)', [ProdukController::class, 'edit/$1']);
 $routes->post('produk/update', [ProdukController::class, 'update']);
 
+/** Route Mitra */
 $routes->get('mitra', [MitraController::class, 'index']);
 $routes->get('mitra/create', [MitraController::class, 'create']);
 $routes->post('mitra/store', [MitraController::class, 'store']);
 $routes->get('mitra/edit/(:num)', [MitraController::class, 'edit/$1']);
 $routes->post('mitra/update', [MitraController::class, 'update']);
 
+/** Route Bahan */
+$routes->get('bahan', [BahanController::class, 'index']);
+$routes->get('bahan/create', [BahanController::class, 'create']);
+$routes->post('bahan/store', [BahanController::class, 'store']);
+$routes->get('bahan/edit/(:num)', [BahanController::class, 'edit/$1']);
+$routes->post('bahan/update', [BahanController::class, 'update']);
+
 // BOSSS
 $routes->get('/penjahit', 'Bos::penjahit');
-$routes->get('/bahan', 'Bos::bahan');
-$routes->get('/bahan/createbahan', 'Bos::createBahan');
-$routes->post('/bahan/storebahan', 'Bos::storeBahan');
-$routes->get('/bahan/editbahan/(:num)', 'Bos::editBahan/$1');
-$routes->post('/bahan/updatebahan', 'Bos::updateBahan');
 $routes->get('/penjahit/createpenjahit', 'Bos::createPenjahit');
 $routes->post('/penjahit/storepenjahit', 'Bos::storePenjahit');
 $routes->get('/penjahit/editpenjahit/(:num)', 'Bos::editPenjahit/$1');
