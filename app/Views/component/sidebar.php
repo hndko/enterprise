@@ -51,13 +51,26 @@
                             <p>Penjahit</p>
                         </a>
                     </li>
+                <?php elseif (session()->get('jabatan') === 'penjualan') : ?>
                     <li class="nav-item">
-                        <a href="<?= base_url('chat') ?>" class="nav-link <?= $pages === 'Chat' ? 'active' : '' ?>">
-                            <i class="nav-icon fas fa-comments"></i>
-                            <p>Chat</p>
+                        <a href="<?= base_url('penjualan/view') ?>" class="nav-link <?= $pages === 'Penjualan' ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-clipboard-list"></i>
+                            Penjualan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('produk') ?>" class="nav-link <?= $pages === 'Produk' ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-box"></i>
+                            Produk
                         </a>
                     </li>
                 <?php endif; ?>
+                <li class="nav-item">
+                    <a href="<?= base_url('chat') ?>" class="nav-link <?= $pages === 'Chat' ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-comments"></i>
+                        <p>Chat</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="<?= base_url('home/logout') ?>" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>

@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <span class="h5"><?= $title ?></span>
                     <div class="card-tools">
-                        <button type="button" class="btn btn-sm btn-outline-dark" onclick="window.location.href='<?= base_url('penjahit/create'); ?>'">Tambah Data</button>
+                        <button type="button" class="btn btn-sm btn-outline-dark" onclick="window.location.href='<?= base_url('mitra/create'); ?>'">Tambah Data</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -30,26 +30,30 @@
 
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Alamat</th>
-                            <th>No Hp</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <tr>
+                                <th>No</th>
+                                <th>ID Penjualan</th>
+                                <th>Tanggal</th>
+                                <th>Total Bayar</th>
+                                <th>ID User</th>
+                                <th>Aksi</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <?php $no = 1; ?>
-                            <?php foreach ($penjahit as  $row) : ?>
+                            <?php $totalpemasukan = 0; ?>
+                            <?php foreach ($users as $user) : ?>
                                 <tr>
-                                    <th scope="row"><?= $no++; ?></td>
-                                    <td><?= $row['nama']; ?></td>
-                                    <td><?= $row['alamat']; ?></td>
-                                    <td><?= $row['no_hp']; ?></td>
-                                    <td><?= $row['status']; ?></td>
+                                    <th><?= $no++; ?></th>
+                                    <td><?= $user['id_penjualan']; ?></td>
+                                    <td><?= $user['tgl']; ?></td>
+                                    <td><?= "Rp " . number_format($user['total_bayar'], 0, ',', '.');  ?></td>
+                                    <td><?= $user['id_user']; ?></td>
                                     <td>
-                                        <a href="<?= base_url('penjahit/edit/' . $row['id_penjahit']); ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a class="btn btn-sm btn-outline-secondary" id="btnDetail" href="<?= base_url('penjualan/detailpenjualan/' . $user['id_penjualan']); ?>">Detail</a>
                                     </td>
                                 </tr>
+                                <?php $totalpemasukan += $user['total_bayar'] ?>
                             <?php endforeach; ?>
                         </tbody>
                     </table>

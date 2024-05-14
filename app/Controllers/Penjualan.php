@@ -28,12 +28,14 @@ class Penjualan extends BaseController
         $this->produkModel = new Produk();
         $this->detailPenjualan = new DetailPenjualan();
     }
+
     public function index()
     {
         $model = new Produk();
 
         $data = [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'pages' => 'Dashboard'
         ];
         $grafik = $model->getTotalPenjualanTahunan();
         $data['grafik'] = $grafik;
@@ -69,18 +71,20 @@ class Penjualan extends BaseController
         $data['grafik3bulan2022'] = $model->getNamaProdukBulanan2022();
         $data['grafik3bulan2023'] = $model->getNamaProdukBulanan2023();
 
-        return view('penjualan/index', $data);
+        return view('dashboard/penjualan/index', $data);
     }
 
-    public function tampol()
+    public function view()
     {
         $data = [
-            'title' => 'PENJUALAN',
-            // Menampilkan daftar user
+            'title' => 'Penjualan',
+            'pages' => 'Penjualan',
             'users' => $this->penjualanModel->findAll()
         ];
-        return view('penjualan/tampol', $data);
+
+        return view('dashboard/penjualan/view', $data);
     }
+
     public function coba()
     {
         $data = [

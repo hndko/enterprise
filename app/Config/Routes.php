@@ -7,6 +7,7 @@ use App\Controllers\BahanController;
 use App\Controllers\MitraController;
 use App\Controllers\ProdukController;
 use App\Controllers\PenjahitController;
+use App\Controllers\Penjualan;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
@@ -84,15 +85,17 @@ $routes->post('chatAll/sendMessage', [ChatController::class, 'sendAllMessage']);
 $routes->post('chatAll/markAsRead', [ChatController::class, 'markAsRead']);
 
 // penjualan
-$routes->get('/penjualan/detailpenjualan/(:num)', 'Penjualan::detailPenjualan/$1');
+$routes->get('penjualan/view', [Penjualan::class, 'view']);
+
+$routes->get('/penjualan/detailpenjualan/(:num)', 'PenjualanController::detailPenjualan/$1');
 // penjahitan
 $routes->get('/produksi/detailpenjahitan/(:num)', 'Produksi::detailPenjahitan/$1');
 $routes->get('/produksi/tambahproduksi', 'Produksi::tambahProduksi');
 $routes->post('/produksi/storeproduksi', 'Produksi::storeProduksi');
 // $routes->get('/tampol', 'Sales::penjualan');
 
-$routes->get('/penjualan/tambahpenjualan', 'Penjualan::tambahPenjualan');
-$routes->post('/penjualan/storepenjualan', 'Penjualan::storePenjualan');
+$routes->get('/penjualan/tambahpenjualan', 'PenjualanController::tambahPenjualan');
+$routes->post('/penjualan/storepenjualan', 'PenjualanController::storePenjualan');
 
 
 // coba

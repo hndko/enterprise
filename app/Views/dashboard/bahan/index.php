@@ -41,7 +41,7 @@
                         <tbody>
                             <?php $no = 1; ?>
                             <?php foreach ($bahan as  $row) : ?>
-                                <tr style="text-align: center; vertical-align: middle;">
+                                <tr>
                                     <th scope="row"><?= $no++; ?></td>
                                     <td><?= $row['nama']; ?></td>
                                     <td><?= $row['jumlah']; ?></td>
