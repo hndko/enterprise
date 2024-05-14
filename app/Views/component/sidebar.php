@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('penjahit') ?>" class="nav-link">
+                    <a href="<?= base_url('penjahit') ?>" class="nav-link <?= $pages === 'Penjahit' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-id-badge"></i>
                         <p>Penjahit</p>
                     </a>

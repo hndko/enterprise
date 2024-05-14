@@ -2,9 +2,11 @@
 
 namespace Config;
 
+use App\Controllers\ChatController;
 use App\Controllers\BahanController;
 use App\Controllers\MitraController;
 use App\Controllers\ProdukController;
+use App\Controllers\PenjahitController;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
@@ -67,12 +69,20 @@ $routes->post('bahan/store', [BahanController::class, 'store']);
 $routes->get('bahan/edit/(:num)', [BahanController::class, 'edit/$1']);
 $routes->post('bahan/update', [BahanController::class, 'update']);
 
-// BOSSS
-$routes->get('/penjahit', 'Bos::penjahit');
-$routes->get('/penjahit/createpenjahit', 'Bos::createPenjahit');
-$routes->post('/penjahit/storepenjahit', 'Bos::storePenjahit');
-$routes->get('/penjahit/editpenjahit/(:num)', 'Bos::editPenjahit/$1');
-$routes->post('/penjahit/updatepenjahit', 'Bos::updatePenjahit');
+/** Route Penjahit */
+$routes->get('penjahit', [PenjahitController::class, 'index']);
+$routes->get('penjahit/create', [PenjahitController::class, 'create']);
+$routes->post('penjahit/store', [PenjahitController::class, 'store']);
+$routes->get('penjahit/edit/(:num)', [PenjahitController::class, 'edit/$1']);
+$routes->post('penjahit/update', [PenjahitController::class, 'update']);
+
+/** Route Chatting */
+$routes->get('chat', [ChatController::class, 'index']);
+$routes->get('chatAll', [ChatController::class, 'indexAll']);
+$routes->post('chat/sendMessage', [ChatController::class, 'sendMessage']);
+$routes->post('chatAll/sendMessage', [ChatController::class, 'sendAllMessage']);
+$routes->post('chatAll/markAsRead', [ChatController::class, 'markAsRead']);
+
 // penjualan
 $routes->get('/penjualan/detailpenjualan/(:num)', 'Penjualan::detailPenjualan/$1');
 // penjahitan
@@ -89,14 +99,6 @@ $routes->post('/penjualan/storepenjualan', 'Penjualan::storePenjualan');
 $routes->get('transaksi', 'TransaksiController::index');
 $routes->post('transaksi/simpan', 'TransaksiController::simpan');
 
-
-
-
-// CHAT
-$routes->get('/chat', 'ChatController::index');
-$routes->get('/chatAll', 'ChatController::indexAll');
-$routes->post('/chat/sendMessage', 'ChatController::sendMessage');
-$routes->post('/chatAll/sendMessage', 'ChatController::sendAllMessage');
 
 
 /*

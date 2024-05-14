@@ -44,8 +44,20 @@ class User extends Model
     {
         return $this->db->query('SELECT * FROM user AS u WHERE u.id_user !=1')->getResultArray();
     }
+
     public function getUserAll()
     {
-        return $this->db->query('SELECT * FROM user')->getResultArray();
+        // Fetch all users
+        $users = $this->db->table('user')->get()->getResultArray();
+
+        // Load chat model to get unread message count
+        $chatModel = new ChatModel();
+
+        // Add unread message count to each user
+        foreach ($users as &$user) {
+            $user['unread_count'] = $chatModel->getUnreadMessageCount($user['id_user']);
+        }
+
+        return $users;
     }
 }

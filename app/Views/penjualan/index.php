@@ -182,9 +182,7 @@
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
             <div class="accordion-body">
-                <?php
-                echo view('penjualan/grafik.php');
-                ?>
+
             </div>
         </div>
     </div>
