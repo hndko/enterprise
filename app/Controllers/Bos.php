@@ -18,18 +18,9 @@ class Bos extends BaseController
         $modelGrafik = new GrafikModelBos();
 
         $data = [
-            'title' => 'Dashboard Bos'
+            'title' => 'Dashboard Bos',
+            'pages' => 'Dashboard'
         ];
-
-        // $data['tahungrafik'] = $model->getTahunPenjualan();
-
-        // grafik penjualan
-        // cek penjualan        
-
-        // setiap 90 hari
-
-        //setiap tahun
-
 
         // grafik pembelian
         // cek pembelian
@@ -536,167 +527,78 @@ class Bos extends BaseController
         echo json_encode($response);
     }
 
-    public function produk()
-    {
-        $model = new Produk();
-        $currentPage = $this->request->getVar('page_produk') ? $this->request->getVar('page_produk') : 1;
-        $keyword = $this->request->getVar('keyword');
-        if (empty($keyword)) {
-            $keyword = '';
-        }
-        $data = [
-            'title' => 'Produk',
-            'keyword' => $keyword,
-        ];
-        $produk = $model->like('nama', $keyword)->paginate(5, 'produk');
-        $data['produk'] = $produk;
-        $data['pager'] = $model->pager;
-        $data['currentPage'] = $currentPage;
-        return view('bos/produk', $data);
-    }
+    // public function mitra()
+    // {
+    //     $model = new Mitra();
+    //     $currentPage = $this->request->getVar('page_mitra') ? $this->request->getVar('page_mitra') : 1;
+    //     $keyword = $this->request->getVar('keyword');
+    //     if (empty($keyword)) {
+    //         $keyword = '';
+    //     }
+    //     $data = [
+    //         'title' => 'Mitra',
+    //         'keyword' => $keyword,
+    //     ];
+    //     $mitra = $model->like('nama', $keyword)->paginate(5, 'mitra');
+    //     $data['mitra'] = $mitra;
+    //     $data['pager'] = $model->pager;
+    //     $data['currentPage'] = $currentPage;
+    //     return view('bos/mitra', $data);
+    // }
 
-    public function detailProduk($id)
-    {
-        $model = new Produk();
-        $data = [
-            'title' => 'Detail Produk'
-        ];
-        $data['produk'] = $model->getProduk($id)->getRowArray();
-        echo view('bos/detailproduk', $data);
-    }
+    // public function createMitra()
+    // {
+    //     $data = [
+    //         'title' => 'Tmabah Mitra'
+    //     ];
+    //     return view('bos/createmitra', $data);
+    // }
 
-    public function createProduk()
-    {
-        $data = [
-            'title' => 'Tambah Produk'
-        ];
-        return view('bos/createproduk', $data);
-    }
+    // public function storeMitra()
+    // {
+    //     $data = array(
+    //         'nama' => $this->request->getPost('nama'),
+    //         'alamat' => $this->request->getPost('alamat'),
+    //         'email' => $this->request->getPost('email'),
+    //         'no_hp' => $this->request->getPost('no_hp'),
+    //         'status' => $this->request->getPost('status')
+    //     );
 
-    public function storeProduk()
-    {
-        $data = array(
-            'nama' => $this->request->getPost('nama'),
-            'ukuran' => $this->request->getPost('ukuran'),
-            'biaya_produksi' => $this->request->getPost('biaya_produksi'),
-            'biaya_jual' => $this->request->getPost('biaya_jual'),
-            'jumlah_produksi_perkain' => $this->request->getPost('jumlah_produksi_perkain'),
-            'panjang_kain_perproduksi' => $this->request->getPost('panjang_kain_perproduksi'),
-            'jumlah' => $this->request->getPost('jumlah'),
-            'status' => $this->request->getPost('status')
-        );
+    //     $model = new Mitra();
+    //     $simpan = $model->insertMitra($data);
+    //     if ($simpan) {
+    //         session()->setFlashdata('success', 'Berhasil Menambah Mitra');
+    //         return redirect()->to(base_url('bos/mitra'));
+    //     }
+    // }
 
-        $model = new Produk();
-        $simpan = $model->insertProduk($data);
-        if ($simpan) {
-            session()->setFlashdata('success', 'Berhasil Menambah produk');
-            return redirect()->to(base_url('bos/produk'));
-        }
-    }
+    // public function editMitra($id)
+    // {
+    //     $model = new Mitra();
+    //     $data = [
+    //         'title' => 'Edit Mitra'
+    //     ];
+    //     $data['mitra'] = $model->getMitra($id)->getRowArray();
+    //     echo view('bos/editmitra', $data);
+    // }
 
-    public function editProduk($id)
-    {
-        $model = new Produk();
-        $data = [
-            'title' => 'Edit Produk'
-        ];
-        $data['produk'] = $model->getProduk($id)->getRowArray();
-        echo view('bos/editproduk', $data);
-    }
-
-    public function updateProduk()
-    {
-        $id = $this->request->getPost('id_produk');
-        $data = array(
-            'nama' => $this->request->getPost('nama'),
-            'ukuran' => $this->request->getPost('ukuran'),
-            'biaya_produksi' => $this->request->getPost('biaya_produksi'),
-            'biaya_jual' => $this->request->getPost('biaya_jual'),
-            // 'jumlah' => $this->request->getPost('jumlah'),
-            'jumlah_produksi_perkain' => $this->request->getPost('jumlah_produksi_perkain'),
-            'panjang_kain_perproduksi' => $this->request->getPost('panjang_kain_perproduksi'),
-            'status' => $this->request->getPost('status')
-        );
-        $model = new Produk();
-        $ubah = $model->updateProduk($data, $id);
-        if ($ubah) {
-            session()->setFlashdata('info', 'Berhasil Mengedit produk');
-            return redirect()->to(base_url('bos/produk'));
-        }
-    }
-
-    public function mitra()
-    {
-        $model = new Mitra();
-        $currentPage = $this->request->getVar('page_mitra') ? $this->request->getVar('page_mitra') : 1;
-        $keyword = $this->request->getVar('keyword');
-        if (empty($keyword)) {
-            $keyword = '';
-        }
-        $data = [
-            'title' => 'Mitra',
-            'keyword' => $keyword,
-        ];
-        $mitra = $model->like('nama', $keyword)->paginate(5, 'mitra');
-        $data['mitra'] = $mitra;
-        $data['pager'] = $model->pager;
-        $data['currentPage'] = $currentPage;
-        return view('bos/mitra', $data);
-    }
-
-    public function createMitra()
-    {
-        $data = [
-            'title' => 'Tmabah Mitra'
-        ];
-        return view('bos/createmitra', $data);
-    }
-
-    public function storeMitra()
-    {
-        $data = array(
-            'nama' => $this->request->getPost('nama'),
-            'alamat' => $this->request->getPost('alamat'),
-            'email' => $this->request->getPost('email'),
-            'no_hp' => $this->request->getPost('no_hp'),
-            'status' => $this->request->getPost('status')
-        );
-
-        $model = new Mitra();
-        $simpan = $model->insertMitra($data);
-        if ($simpan) {
-            session()->setFlashdata('success', 'Berhasil Menambah Mitra');
-            return redirect()->to(base_url('bos/mitra'));
-        }
-    }
-
-    public function editMitra($id)
-    {
-        $model = new Mitra();
-        $data = [
-            'title' => 'Edit Mitra'
-        ];
-        $data['mitra'] = $model->getMitra($id)->getRowArray();
-        echo view('bos/editmitra', $data);
-    }
-
-    public function updateMitra()
-    {
-        $id = $this->request->getPost('id_mitra');
-        $data = array(
-            'nama' => $this->request->getPost('nama'),
-            'alamat' => $this->request->getPost('alamat'),
-            'email' => $this->request->getPost('email'),
-            'no_hp' => $this->request->getPost('no_hp'),
-            'status' => $this->request->getPost('status')
-        );
-        $model = new Mitra();
-        $ubah = $model->updateMitra($data, $id);
-        if ($ubah) {
-            session()->setFlashdata('info', 'Berhasil Mengedit Mitra');
-            return redirect()->to(base_url('bos/mitra'));
-        }
-    }
+    // public function updateMitra()
+    // {
+    //     $id = $this->request->getPost('id_mitra');
+    //     $data = array(
+    //         'nama' => $this->request->getPost('nama'),
+    //         'alamat' => $this->request->getPost('alamat'),
+    //         'email' => $this->request->getPost('email'),
+    //         'no_hp' => $this->request->getPost('no_hp'),
+    //         'status' => $this->request->getPost('status')
+    //     );
+    //     $model = new Mitra();
+    //     $ubah = $model->updateMitra($data, $id);
+    //     if ($ubah) {
+    //         session()->setFlashdata('info', 'Berhasil Mengedit Mitra');
+    //         return redirect()->to(base_url('bos/mitra'));
+    //     }
+    // }
 
     public function penjahit()
     {

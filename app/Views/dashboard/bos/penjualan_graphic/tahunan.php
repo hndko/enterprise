@@ -110,7 +110,7 @@
         <?php endif; ?>
 
 
-        <?= $this->section('chartJS') ?>
+        <?= $this->section('javascript') ?>
         <script>
             $(function() {
                 /* ChartJS

@@ -21,19 +21,19 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="<?= base_url('dashboard') ?>" class="nav-link">
+                    <a href="<?= base_url('dashboard') ?>" class="nav-link <?= $pages === 'Dashboard' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-home"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('produk') ?>" class="nav-link">
+                    <a href="<?= base_url('produk') ?>" class="nav-link <?= $pages === 'Produk' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-box"></i>
                         <p>Produk</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('mitra') ?>" class="nav-link">
+                    <a href="<?= base_url('mitra') ?>" class="nav-link <?= $pages === 'Mitra' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-people-carry"></i>
                         <p>Mitra</p>
                     </a>
