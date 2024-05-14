@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <span class="h5"><?= $title ?></span>
                     <div class="card-tools">
-                        <button type="button" class="btn btn-sm btn-outline-dark" onclick="window.location.href='<?= base_url('mitra/create'); ?>'">Tambah Data</button>
+                        <button type="button" class="btn btn-sm btn-outline-dark" onclick="window.location.href='<?= base_url('penjualan/create'); ?>'">Tambah Data</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -50,7 +50,7 @@
                                     <td><?= "Rp " . number_format($user['total_bayar'], 0, ',', '.');  ?></td>
                                     <td><?= $user['id_user']; ?></td>
                                     <td>
-                                        <a class="btn btn-sm btn-outline-secondary" id="btnDetail" href="<?= base_url('penjualan/detailpenjualan/' . $user['id_penjualan']); ?>">Detail</a>
+                                        <a class="btn btn-sm btn-outline-secondary" id="btnDetail" href="<?= base_url('penjualan/detail/' . $user['id_penjualan']); ?>">Detail</a>
                                     </td>
                                 </tr>
                                 <?php $totalpemasukan += $user['total_bayar'] ?>

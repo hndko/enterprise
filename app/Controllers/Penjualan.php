@@ -95,13 +95,55 @@ class Penjualan extends BaseController
         return view('penjualan/coba', $data);
     }
 
-    public function tambahPenjualan()
+    public function create()
     {
         $data = [
             'title' => 'Input Penjualan',
+            'pages' => 'Penjualan',
             'produk' => $this->produkModel->getProdukAktif()
         ];
-        return view('penjualan/tambahpenjualan', $data);
+
+        return view('dashboard/penjualan/create', $data);
+    }
+
+    public function store()
+    {
+        $detailPenjualanModel = new DetailPenjualan();
+        // masukkan data penjualan dulu baru detail
+        $this->penjualanModel->insert(['id_user' => session('id')]);
+        // ambil id terbaru
+        $idPenjualan = $this->penjualanModel->ambilIdTerbaru();
+        $data = [
+            [
+                'id_penjualan' => $idPenjualan[0]['id_penjualan'],
+                'id_produk' => $this->request->getPost('id_produk'),
+                'harga' => $this->request->getPost('harga'),
+                'jumlah' => $this->request->getPost('jumlah'),
+                'total' => $this->request->getPost('total'),
+            ]
+        ];
+        $data2 = [
+            'id_penjualan' => $idPenjualan[0]['id_penjualan'],
+        ];
+        $totalBayar = intval($this->request->getPost('total'));
+        $detailPenjualanModel->insertBatch($data);
+        $this->penjualanModel->update($data2, ['total_bayar' => strval($totalBayar)]);
+
+        return redirect()->route('penjualan/view');
+    }
+
+    public function detail($id)
+    {
+        $penjualanModel = new Penjualan_model();
+        $detailpenjualanModel = new DetailPenjualan();
+        $produkModel = new Produk();
+        $data['penjualan'] = $penjualanModel->findAll();
+        $data['produk'] = $produkModel->findAll();
+        $data['details'] = $detailpenjualanModel->where('id_penjualan', $id)->findAll();
+        $data['title'] = 'Detail Penjualan';
+        $data['pages'] = 'Penjualan';
+
+        return view('dashboard/penjualan/show', $data);
     }
 
     public function cetakPenjualan()
@@ -196,45 +238,6 @@ class Penjualan extends BaseController
         }
     }
 
-    public function DetailPenjualan($id)
-    {
-        $penjualanModel = new Penjualan_model();
-        $detailpenjualanModel = new DetailPenjualan();
-        $produkModel = new Produk();
-        $data['penjualan'] = $penjualanModel->findAll();
-        $data['produk'] = $produkModel->findAll();
-        $data['details'] = $detailpenjualanModel->where('id_penjualan', $id)->findAll();
-
-        $data['title'] = 'detail';
-
-        return view('penjualan/detail_penjualan', $data);
-    }
-
-    public function storeDetailPenjualan()
-    {
-        $detailPenjualanModel = new DetailPenjualan();
-        // masukkan data penjualan dulu baru detail
-        $this->penjualanModel->insert(['id_user' => session('id')]);
-        // ambil id terbaru
-        $idPenjualan = $this->penjualanModel->ambilIdTerbaru();
-        $data = [
-            [
-                'id_penjualan' => $idPenjualan[0]['id_penjualan'],
-                'id_produk' => $this->request->getPost('id_produk'),
-                'harga' => $this->request->getPost('harga'),
-                'jumlah' => $this->request->getPost('jumlah'),
-                'total' => $this->request->getPost('total'),
-            ]
-        ];
-        $data2 = [
-            'id_penjualan' => $idPenjualan[0]['id_penjualan'],
-        ];
-        $totalBayar = intval($this->request->getPost('total'));
-        $detailPenjualanModel->insertBatch($data);
-        $this->penjualanModel->update($data2, ['total_bayar' => strval($totalBayar)]);
-
-        return redirect()->to('/penjualan/tampol');
-    }
     public function get_harga_produk()
     {
         $id_produk = $this->request->getPost('id_produk');

@@ -4,6 +4,7 @@ namespace Config;
 
 use App\Controllers\ChatController;
 use App\Controllers\BahanController;
+use App\Controllers\Dashboard;
 use App\Controllers\MitraController;
 use App\Controllers\ProdukController;
 use App\Controllers\PenjahitController;
@@ -41,7 +42,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index'); //INI LOGIN
 $routes->get('/logout', 'Home::logout'); //INI LOGIN
 
-$routes->get('/dashboard', 'Dashboard::index'); //INI DASHBOARD
+$routes->get('dashboard', [Dashboard::class, 'index']); //INI DASHBOARD
 
 $routes->get('bos/penjualan/graphic/1hari', 'Bos::penjualangraphic_1hari');
 $routes->get('bos/penjualan/graphic/7hari', 'Bos::penjualangraphic_7hari');
@@ -86,16 +87,16 @@ $routes->post('chatAll/markAsRead', [ChatController::class, 'markAsRead']);
 
 // penjualan
 $routes->get('penjualan/view', [Penjualan::class, 'view']);
+$routes->get('penjualan/create', [Penjualan::class, 'create']);
+$routes->post('penjualan/store', [Penjualan::class, 'store']);
+$routes->get('penjualan/detail/(:num)', [Penjualan::class, 'detail/$1']);
 
-$routes->get('/penjualan/detailpenjualan/(:num)', 'PenjualanController::detailPenjualan/$1');
 // penjahitan
 $routes->get('/produksi/detailpenjahitan/(:num)', 'Produksi::detailPenjahitan/$1');
 $routes->get('/produksi/tambahproduksi', 'Produksi::tambahProduksi');
 $routes->post('/produksi/storeproduksi', 'Produksi::storeProduksi');
 // $routes->get('/tampol', 'Sales::penjualan');
 
-$routes->get('/penjualan/tambahpenjualan', 'PenjualanController::tambahPenjualan');
-$routes->post('/penjualan/storepenjualan', 'PenjualanController::storePenjualan');
 
 
 // coba
